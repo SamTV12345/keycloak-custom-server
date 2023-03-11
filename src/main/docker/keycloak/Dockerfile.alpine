@@ -1,6 +1,6 @@
-FROM alpine:3.16.1 as builder
+FROM alpine:edge as builder
 
-RUN apk add bash binutils openjdk17-jdk --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community && \
+RUN apk add bash binutils bash openjdk19-jdk --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing  && \
     echo "keycloak:x:0:root" >> /etc/group && \
     echo "keycloak:x:1000:0:keycloak user:/opt/keycloak:/sbin/nologin" >> /etc/passwd
 
@@ -8,11 +8,11 @@ COPY --chown=keycloak:keycloak maven/keycloak /opt/keycloak
 
 USER 1000
 
-RUN /opt/keycloak/bin/kc.sh build
+RUN bash /opt/keycloak/bin/kc.sh build
 
-FROM alpine:3.15.4
+FROM alpine:edge
 
-RUN apk add bash binutils openjdk17-jdk --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community && \
+RUN apk add bash binutils openjdk19-jre-headless --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
     echo "keycloak:x:0:root" >> /etc/group && \
     echo "keycloak:x:1000:0:keycloak user:/opt/keycloak:/sbin/nologin" >> /etc/passwd
 
@@ -38,4 +38,6 @@ USER 1000
 EXPOSE 8080
 EXPOSE 8443
 
-ENTRYPOINT [ "/opt/keycloak/bin/kc.sh" ]
+RUN chmod +x /opt/keycloak/bin/kc.sh
+
+ENTRYPOINT [ "/opt/keycloak/bin/kc.sh", "start"]

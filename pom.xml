@@ -19,13 +19,13 @@
         <docker-maven-plugin.version>0.38.0</docker-maven-plugin.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M1</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 
         <!-- Dependencies -->
         <keycloak.version>21.0.1</keycloak.version>
 
-        <quarkus.version>2.16.4.Final</quarkus.version>
+        <quarkus.version>2.13.7.Final</quarkus.version>
         <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.3-java17</quarkus.native.builder-image>
 
         <quarkus.package.type>native</quarkus.package.type>
@@ -39,7 +39,7 @@
         <auto-service.version>1.0.1</auto-service.version>
 
         <!-- Docker -->
-        <docker.image>thomasdarimont/custom-keycloakx</docker.image>
+        <docker.image>docker-registry.schwanzer.online/public/custom-keycloakx</docker.image>
         <docker.file>keycloak/Dockerfile.alpine</docker.file>
     </properties>
 
@@ -130,18 +130,18 @@
                 <!-- Exclude unused support for: H2 -->
                 <!-- Note: by default keycloak uses the h2 database as database for auto-build.
                      To remove h2, one needs to configure another Database in src/main/resources/META-INF/keycloak.conf -->
-<!--                <exclusion>-->
-<!--                    <groupId>com.h2database</groupId>-->
-<!--                    <artifactId>h2</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>io.quarkus</groupId>-->
-<!--                    <artifactId>quarkus-jdbc-h2</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>io.quarkus</groupId>-->
-<!--                    <artifactId>quarkus-jdbc-h2-deployment</artifactId>-->
-<!--                </exclusion>-->
+                <exclusion>
+                    <groupId>com.h2database</groupId>
+                   <artifactId>h2</artifactId>
+                </exclusion>
+               <exclusion>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-jdbc-h2</artifactId>
+               </exclusion>
+               <exclusion>
+                   <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-jdbc-h2-deployment</artifactId>
+               </exclusion>
             </exclusions>
         </dependency>
 
@@ -163,7 +163,7 @@
             <!-- we need to downgrade liquibase to 4.8.0 for compatibility -->
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>4.8.0</version>
+            <version>4.16.1</version>
         </dependency>
 
 <!--        <dependency>-->
