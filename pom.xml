@@ -11,7 +11,7 @@
 
     <properties>
         <!-- Maven -->
-        <java.version>11</java.version>
+        <java.version>19</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,9 +23,9 @@
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 
         <!-- Dependencies -->
-        <keycloak.version>20.0.3</keycloak.version>
+        <keycloak.version>21.0.1</keycloak.version>
 
-        <quarkus.version>2.13.7.Final</quarkus.version>
+        <quarkus.version>2.16.4.Final</quarkus.version>
         <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.3-java17</quarkus.native.builder-image>
 
         <quarkus.package.type>native</quarkus.package.type>
