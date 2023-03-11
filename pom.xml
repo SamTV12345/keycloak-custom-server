@@ -11,7 +11,7 @@
 
     <properties>
         <!-- Maven -->
-        <java.version>19</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,7 +39,7 @@
         <auto-service.version>1.0.1</auto-service.version>
 
         <!-- Docker -->
-        <docker.image>docker-registry.schwanzer.online/public/custom-keycloakx</docker.image>
+        <docker.image>samuel19982/keycloak_alpine</docker.image>
         <docker.file>keycloak/Dockerfile.alpine</docker.file>
     </properties>
 
