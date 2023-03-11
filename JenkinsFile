@@ -1,0 +1,61 @@
+void setBuildStatus(String message, String state) {
+  step([
+      $class: "GitHubCommitStatusSetter",
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/SamTV12345/keycloak-custom-server"],
+      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  ]);
+}
+
+
+pipeline {
+
+    environment {
+
+        registry = "samuel19982/keycloak_alpine"
+
+        registryCredential = 'dockerhub'
+
+        dockerImage = ''
+        dockertag = ''
+
+    }
+
+    agent any
+
+    stages {
+
+        stage('Cloning our Git') {
+
+            steps {
+
+
+                git branch: 'main', url: 'https://github.com/SamTV12345/keycloak-custom-server'
+                }
+            }
+
+        stage('Building and pushing our image') {
+            steps {
+
+            withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+
+                    sh '/maven/bin/mvn clean -Ddocker.username=$DOCKER_REGISTRY_USER -Ddocker.password=$DOCKER_REGISTRY_PWD verify docker:build docker:push'
+            }
+
+        }
+        }
+
+        stage('Cleaning up') {
+
+            steps {
+
+                sh "docker rmi $registry:$BUILD_NUMBER"
+
+            }
+
+        }
+    }
+}
+
+
