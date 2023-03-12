@@ -25,6 +25,7 @@
         <!-- Dependencies -->
         <keycloak.version>21.0.1</keycloak.version>
 
+        <vertx.version>4.3.8</vertx.version>
         <quarkus.version>2.13.7.Final</quarkus.version>
         <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.3-java17</quarkus.native.builder-image>
 
@@ -72,6 +73,12 @@
                     <!-- CVE_MITIGATION: CVE-2020-36518 excluded since this includes an outdated version of jackson-databind that is affected by a CVE.-->
                     <groupId>org.wildfly.security</groupId>
                     <artifactId>wildfly-elytron</artifactId>
+                </exclusion>
+
+                <!-- vertx web-->
+                <exclusion>
+                    <groupId>io.vertx</groupId>
+                    <artifactId>vertx-web</artifactId>
                 </exclusion>
 
                 <!-- Exclude unused support for: MySQL -->
@@ -145,6 +152,11 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-web</artifactId>
+            <version>${vertx.version}</version>
+        </dependency>
         <!-- Additional Quarkus Features: Begin -->
 
         <dependency>
