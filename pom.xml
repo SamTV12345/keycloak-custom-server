@@ -24,8 +24,6 @@
 
         <!-- Dependencies -->
         <keycloak.version>21.0.2</keycloak.version>
-
-        <vertx.version>4.3.8</vertx.version>
         <quarkus.version>2.13.7.Final</quarkus.version>
         <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.3-java17</quarkus.native.builder-image>
 
@@ -155,7 +153,6 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-web</artifactId>
-            <version>${vertx.version}</version>
         </dependency>
         <!-- Additional Quarkus Features: Begin -->
 
