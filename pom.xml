@@ -40,7 +40,7 @@
         <auto-service.version>1.0.1</auto-service.version>
 
         <!-- Docker -->
-        <docker.image>samuel19982/keycloak_alpine</docker.image>
+        <docker.image>samuel19982/keycloak_alpine:amd64</docker.image>
         <docker.file>keycloak/Dockerfile.alpine</docker.file>
     </properties>
 

@@ -13,7 +13,7 @@ pipeline {
 
     environment {
 
-        registry = "samuel19982/keycloak_alpine"
+        registry = "samuel19982/keycloak_alpine:amd64"
 
         registryCredential = 'dockerhub'
 
