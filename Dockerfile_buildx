@@ -20,13 +20,13 @@ RUN echo "Add certificates to cacerts truststore" \
 # Note you can check if certs were added with the following commands
 # keytool -list -keystore /etc/pki/java/cacerts -storepass changeit |& head
 # keytool -list -keystore /etc/pki/java/cacerts -storepass changeit |& grep -i mycustomcert
-
+USER root
+RUN chmod +x /opt/keycloak/bin/kc.sh
 USER 1000
 
 EXPOSE 8080
 EXPOSE 8443
 
-RUN ls -lisa /opt/keycloak/bin/
-RUN chmod +x /opt/keycloak/bin/kc.sh
+
 
 ENTRYPOINT [ "/opt/keycloak/bin/kc.sh", "start"]
