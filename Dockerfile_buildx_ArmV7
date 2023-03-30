@@ -1,0 +1,27 @@
+FROM eclipse-temurin:17.0.6_10-jre-jammy
+
+RUN echo "keycloak:x:0:root" >> /etc/group && \
+    echo "keycloak:x:1000:0:keycloak user:/opt/keycloak:/sbin/nologin" >> /etc/passwd
+
+COPY --chown=$USER ./target/keycloak-21.0.2/ /opt/keycloak/
+
+RUN echo "Add certificates to cacerts truststore" \
+    && ls -l /opt/keycloak/conf/certs/* \
+    && cat /opt/keycloak/conf/certs/*.pem > /usr/local/share/ca-certificates/ca-certficates.crt \
+    && echo "Updating cacerts truststore..."\
+    && update-ca-certificates \
+    && echo "Certificates added to cacerts truststore" \
+    || (echo "Could not import certificates" && exit 1)
+
+# Note you can check if certs were added with the following commands
+# keytool -list -keystore /etc/pki/java/cacerts -storepass changeit |& head
+# keytool -list -keystore /etc/pki/java/cacerts -storepass changeit |& grep -i mycustomcert
+USER root
+RUN chmod +x /opt/keycloak/bin/kc.sh
+RUN chown -R keycloak:keycloak /opt/keycloak
+USER keycloak
+
+EXPOSE 8080
+EXPOSE 8443
+
+ENTRYPOINT [ "/opt/keycloak/bin/kc.sh", "start"]
