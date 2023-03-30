@@ -1,0 +1,31 @@
+FROM alpine:edge
+
+RUN apk add bash binutils openjdk19-jre-headless --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
+    echo "keycloak:x:0:root" >> /etc/group && \
+    echo "keycloak:x:1000:0:keycloak user:/opt/keycloak:/sbin/nologin" >> /etc/passwd
+
+RUN apk add tzdata bash --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community && \
+    ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime # set timezone
+
+COPY ./target/keycloak-21.0.2/ /opt/keycloak/
+
+RUN echo "Add certificates to cacerts truststore" \
+    && ls -l /opt/keycloak/conf/certs/* \
+    && cat /opt/keycloak/conf/certs/*.pem > /usr/local/share/ca-certificates/ca-certficates.crt \
+    && echo "Updating cacerts truststore..."\
+    && update-ca-certificates \
+    && echo "Certificates added to cacerts truststore" \
+    || (echo "Could not import certificates" && exit 1)
+
+# Note you can check if certs were added with the following commands
+# keytool -list -keystore /etc/pki/java/cacerts -storepass changeit |& head
+# keytool -list -keystore /etc/pki/java/cacerts -storepass changeit |& grep -i mycustomcert
+
+USER 1000
+
+EXPOSE 8080
+EXPOSE 8443
+
+RUN chmod +x /opt/keycloak/bin/kc.sh
+
+ENTRYPOINT [ "/opt/keycloak/bin/kc.sh", "start"]
