@@ -26,6 +26,7 @@ USER 1000
 EXPOSE 8080
 EXPOSE 8443
 
+RUN ls /opt/keycloak/bin/
 RUN chmod +x /opt/keycloak/bin/kc.sh
 
 ENTRYPOINT [ "/opt/keycloak/bin/kc.sh", "start"]
