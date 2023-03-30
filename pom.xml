@@ -23,7 +23,7 @@
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 
         <!-- Dependencies -->
-        <keycloak.version>21.0.1</keycloak.version>
+        <keycloak.version>21.0.2</keycloak.version>
 
         <vertx.version>4.3.8</vertx.version>
         <quarkus.version>2.13.7.Final</quarkus.version>
@@ -175,7 +175,7 @@
             <!-- we need to downgrade liquibase to 4.8.0 for compatibility -->
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>4.16.1</version>
+            <version>4.20.0</version>
         </dependency>
 
 <!--        <dependency>-->
@@ -257,7 +257,7 @@
                 <!-- pull up to match version used by Keycloak -->
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
-                <version>4.10.0</version>
+                <version>5.0.0-alpha.11</version>
             </dependency>
 
 
