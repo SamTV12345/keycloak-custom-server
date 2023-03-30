@@ -17,12 +17,14 @@ RUN echo "Add certificates to cacerts truststore" \
     && echo "Certificates added to cacerts truststore" \
     || (echo "Could not import certificates" && exit 1)
 
+RUN adduser -D -u 1000 keycloak
 # Note you can check if certs were added with the following commands
 # keytool -list -keystore /etc/pki/java/cacerts -storepass changeit |& head
 # keytool -list -keystore /etc/pki/java/cacerts -storepass changeit |& grep -i mycustomcert
 USER root
 RUN chmod +x /opt/keycloak/bin/kc.sh
-USER 1000
+RUN chown -R keycloak:keycloak /opt/keycloak
+USER keycloak
 
 EXPOSE 8080
 EXPOSE 8443
