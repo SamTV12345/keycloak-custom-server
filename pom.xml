@@ -16,7 +16,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-        <docker-maven-plugin.version>0.42.0</docker-maven-plugin.version>
+        <docker-maven-plugin.version>0.40.3</docker-maven-plugin.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M1</maven-failsafe-plugin.version>
@@ -172,7 +172,6 @@
             <!-- we need to downgrade liquibase to 4.8.0 for compatibility -->
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>4.20.0</version>
         </dependency>
 
 <!--        <dependency>-->
@@ -254,7 +253,7 @@
                 <!-- pull up to match version used by Keycloak -->
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
-                <version>5.0.0-alpha.11</version>
+                <version>4.10.0</version>
             </dependency>
 
 
