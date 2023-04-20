@@ -147,6 +147,14 @@
                    <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-jdbc-h2-deployment</artifactId>
                </exclusion>
+                <exclusion>
+                    <groupId>org.keycloak</groupId>
+                    <artifactId>keycloak-admin-ui</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.keycloak</groupId>
+                    <artifactId>keycloak-account-ui</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
