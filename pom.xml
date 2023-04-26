@@ -8,7 +8,68 @@
     <artifactId>custom-keycloak-server</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <profiles>
+        <profile>
+            <id>profile-1</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <keycloak.version>20.0.5</keycloak.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>testing</id>
+            <repositories>
+                <repository>
+                    <id>sonatype</id>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+                </repository>
+            </repositories>
+            <properties>
+                <keycloak.version>999.0.0-SNAPSHOT</keycloak.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>native</id>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+                <quarkus.native.additional-build-args>--initialize-at-run-time=freemarker.ext.jython.JythonWrapper --allow-incomplete-classpath -H:ConfigurationFileDirectories=/home/tom/dev/repos/gh/thomasdarimont/keycloak-dev/keycloak-custom-server/graalvm</quarkus.native.additional-build-args>
+            </properties>
+        </profile>
 
+        <profile>
+            <id>with-integration-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-failsafe-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <includes>
+                                <include>**/*IntegrationTest.java</include>
+                            </includes>
+                            <forkMode>once</forkMode>
+                            <environmentVariables>
+                                <!-- workaround for usupported RYUK on fedora linux-->
+                                <TESTCONTAINERS_RYUK_DISABLED>true</TESTCONTAINERS_RYUK_DISABLED>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <properties>
         <!-- Maven -->
         <java.version>17</java.version>
@@ -23,7 +84,6 @@
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 
         <!-- Dependencies -->
-        <keycloak.version>21.1.0</keycloak.version>
         <quarkus.version>2.13.7.Final</quarkus.version>
         <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.3-java17</quarkus.native.builder-image>
 
@@ -286,49 +346,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <profiles>
-
-        <profile>
-            <id>native</id>
-            <properties>
-                <quarkus.package.type>native</quarkus.package.type>
-                <quarkus.native.additional-build-args>--initialize-at-run-time=freemarker.ext.jython.JythonWrapper --allow-incomplete-classpath -H:ConfigurationFileDirectories=/home/tom/dev/repos/gh/thomasdarimont/keycloak-dev/keycloak-custom-server/graalvm</quarkus.native.additional-build-args>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>with-integration-tests</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven-failsafe-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <includes>
-                                <include>**/*IntegrationTest.java</include>
-                            </includes>
-                            <forkMode>once</forkMode>
-                            <environmentVariables>
-                                <!-- workaround for usupported RYUK on fedora linux-->
-                                <TESTCONTAINERS_RYUK_DISABLED>true</TESTCONTAINERS_RYUK_DISABLED>
-                            </environmentVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <build>
         <finalName>keycloak-${project.version}</finalName>
