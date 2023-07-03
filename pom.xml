@@ -15,7 +15,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <keycloak.version>21.1.1</keycloak.version>
+                <keycloak.version>21.1.2</keycloak.version>
             </properties>
         </profile>
         <profile>
