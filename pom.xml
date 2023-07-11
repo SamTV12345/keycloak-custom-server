@@ -15,7 +15,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <keycloak.version>21.1.1</keycloak.version>
+                <keycloak.version>22.0.0</keycloak.version>
+                <quarkus.version>3.2.0.Final</quarkus.version>
             </properties>
         </profile>
         <profile>
@@ -28,6 +29,7 @@
             </repositories>
             <properties>
                 <keycloak.version>999.0.0-SNAPSHOT</keycloak.version>
+                <quarkus.version>3.2.0.Final</quarkus.version>
             </properties>
         </profile>
         <profile>
@@ -77,14 +79,13 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-        <docker-maven-plugin.version>0.40.3</docker-maven-plugin.version>
+        <docker-maven-plugin.version>0.43.0</docker-maven-plugin.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M1</maven-failsafe-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 
         <!-- Dependencies -->
-        <quarkus.version>2.13.7.Final</quarkus.version>
         <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.3-java17</quarkus.native.builder-image>
 
         <quarkus.package.type>native</quarkus.package.type>

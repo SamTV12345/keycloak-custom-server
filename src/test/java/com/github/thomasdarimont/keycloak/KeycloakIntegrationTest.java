@@ -8,7 +8,7 @@ import org.keycloak.TokenVerifier;
 import org.keycloak.representations.IDToken;
 import org.testcontainers.containers.output.ToStringConsumer;
 
-import javax.ws.rs.core.Form;
+import jakarta.ws.rs.core.Form;
 import java.util.concurrent.TimeUnit;
 
 import static com.github.thomasdarimont.keycloak.support.KeycloakTestSupport.createOrUpdateTestUser;

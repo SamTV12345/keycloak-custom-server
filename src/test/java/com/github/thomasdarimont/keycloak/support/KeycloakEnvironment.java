@@ -12,8 +12,8 @@ import org.testcontainers.containers.SelinuxContext;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 
 /**
  * Starts a Keycloak container with a Keycloak-Config-CLI sidecar.
@@ -29,7 +29,7 @@ public class KeycloakEnvironment {
     private boolean runConfigCli = true;
 
     public void start() {
-        keycloak = new KeycloakContainer("quay.io/keycloak/keycloak:18.0.2");
+        keycloak = new KeycloakContainer("quay.io/keycloak/keycloak:21.1.1");
         keycloak.withProviderClassesFrom("target/classes");
         keycloak.withReuse(true);
         keycloak.withCreateContainerCmdModifier(cmd -> cmd.withName("keycloak-" + Long.toHexString(System.currentTimeMillis())));
