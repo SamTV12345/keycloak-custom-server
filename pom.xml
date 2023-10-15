@@ -15,8 +15,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <keycloak.version>22.0.3</keycloak.version>
-                <quarkus.version>3.2.5.Final</quarkus.version>
+                <keycloak.version>22.0.4</keycloak.version>
+                <quarkus.version>3.2.6.Final</quarkus.version>
             </properties>
         </profile>
         <profile>
