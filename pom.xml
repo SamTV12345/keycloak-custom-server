@@ -15,8 +15,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <keycloak.version>22.0.4</keycloak.version>
-                <quarkus.version>3.2.6.Final</quarkus.version>
+                <keycloak.version>23.0.0</keycloak.version>
+                <quarkus.version>3.2.9.Final</quarkus.version>
             </properties>
         </profile>
         <profile>
@@ -29,7 +29,7 @@
             </repositories>
             <properties>
                 <keycloak.version>999.0.0-SNAPSHOT</keycloak.version>
-                <quarkus.version>3.2.5.Final</quarkus.version>
+                <quarkus.version>3.2.9.Final</quarkus.version>
             </properties>
         </profile>
         <profile>
@@ -74,7 +74,7 @@
     </profiles>
     <properties>
         <!-- Maven -->
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
