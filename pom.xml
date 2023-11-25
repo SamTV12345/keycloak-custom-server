@@ -234,7 +234,11 @@
         <dependencies>
             <!-- CVE Patch overrides: Begin -->
             <!-- CVE Patch overrides: End -->
-
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-commons</artifactId>
+                <version>14.0.21.Final</version>
+            </dependency>
             <dependency>
                 <!-- use dependencies from quarkus bom -->
                 <groupId>io.quarkus.platform</groupId>
