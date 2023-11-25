@@ -114,12 +114,6 @@
         </dependency>
 
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc</artifactId>
-            <version>${quarkus.version}</version>
-        </dependency>
-
-        <dependency>
             <!-- Keycloak Quarkus Server Libraries-->
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-quarkus-server</artifactId>
@@ -128,18 +122,6 @@
             <!-- Exclude unused dependencies -->
 
             <exclusions>
-                <exclusion>
-                    <!-- CVE_MITIGATION: CVE-2020-36518 excluded since this includes an outdated version of jackson-databind that is affected by a CVE.-->
-                    <groupId>org.wildfly.security</groupId>
-                    <artifactId>wildfly-elytron</artifactId>
-                </exclusion>
-
-                <!-- vertx web-->
-                <exclusion>
-                    <groupId>io.vertx</groupId>
-                    <artifactId>vertx-web</artifactId>
-                </exclusion>
-
                 <!-- Exclude unused support for: MySQL -->
                 <exclusion>
                     <groupId>mysql</groupId>
@@ -200,14 +182,6 @@
                     <groupId>com.h2database</groupId>
                    <artifactId>h2</artifactId>
                 </exclusion>
-               <exclusion>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-jdbc-h2</artifactId>
-               </exclusion>
-               <exclusion>
-                   <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-jdbc-h2-deployment</artifactId>
-               </exclusion>
             </exclusions>
         </dependency>
 
@@ -230,25 +204,9 @@
         </dependency>
 
         <dependency>
-            <!-- we need to downgrade liquibase to 4.8.0 for compatibility -->
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-logging-gelf</artifactId>-->
-<!--            <version>${quarkus.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-logging-gelf-deployment</artifactId>-->
-<!--            <version>${quarkus.version}</version>-->
-<!--        </dependency>-->
-
-        <!-- Additional Quarkus Features: End -->
-
-        <!-- testing libraries -->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -269,30 +227,6 @@
             <artifactId>testcontainers-keycloak</artifactId>
             <version>${testcontainers-keycloak.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <!-- Needed to properly use RestEasy JaxRS Client in integration tests. -->
-            <groupId>org.wildfly.client</groupId>
-            <artifactId>wildfly-client-config</artifactId>
-            <version>1.0.1.Final</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-
-        <!-- Tooling -->
-        <dependency>
-            <groupId>com.google.auto.service</groupId>
-            <artifactId>auto-service</artifactId>
-            <version>${auto-service.version}</version>
-            <optional>true</optional>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
