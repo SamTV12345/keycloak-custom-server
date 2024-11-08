@@ -1,0 +1,14 @@
+version: '3.9'
+
+volumes:
+  db_data:
+    driver: local
+
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
