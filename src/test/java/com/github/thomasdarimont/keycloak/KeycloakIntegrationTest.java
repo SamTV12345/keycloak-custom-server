@@ -9,6 +9,7 @@ import org.keycloak.representations.IDToken;
 import org.testcontainers.containers.output.ToStringConsumer;
 
 import jakarta.ws.rs.core.Form;
+
 import java.util.concurrent.TimeUnit;
 
 import static com.github.thomasdarimont.keycloak.support.KeycloakTestSupport.createOrUpdateTestUser;

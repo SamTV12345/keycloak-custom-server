@@ -15,8 +15,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <keycloak.version>23.0.0</keycloak.version>
-                <quarkus.version>3.2.9.Final</quarkus.version>
+                <keycloak.version>26.0.5</keycloak.version>
+                <quarkus.version>3.15.1</quarkus.version>
             </properties>
         </profile>
         <profile>
@@ -30,13 +30,6 @@
             <properties>
                 <keycloak.version>999.0.0-SNAPSHOT</keycloak.version>
                 <quarkus.version>3.2.9.Final</quarkus.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>native</id>
-            <properties>
-                <quarkus.package.type>native</quarkus.package.type>
-                <quarkus.native.additional-build-args>--initialize-at-run-time=freemarker.ext.jython.JythonWrapper --allow-incomplete-classpath -H:ConfigurationFileDirectories=/home/tom/dev/repos/gh/thomasdarimont/keycloak-dev/keycloak-custom-server/graalvm</quarkus.native.additional-build-args>
             </properties>
         </profile>
 
@@ -87,13 +80,10 @@
 
         <!-- Dependencies -->
         <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.3-java17</quarkus.native.builder-image>
-
-        <quarkus.package.type>native</quarkus.package.type>
-
         <!-- Testing -->
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <assertj-core.version>3.22.0</assertj-core.version>
-        <testcontainers-keycloak.version>2.4.0</testcontainers-keycloak.version>
+        <testcontainers-keycloak.version>3.5.1</testcontainers-keycloak.version>
 
         <!-- Tooling -->
         <auto-service.version>1.0.1</auto-service.version>
@@ -103,14 +93,13 @@
         <docker.file>keycloak/Dockerfile.alpine</docker.file>
     </properties>
 
-    <dependencies>
 
+
+    <dependencies>
         <dependency>
-            <!-- Base Keycloak.X Distribution -->
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-quarkus-dist</artifactId>
-            <version>${keycloak.version}</version>
-            <type>zip</type>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>9.6</version>
         </dependency>
 
         <dependency>
@@ -174,39 +163,23 @@
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-jdbc-mariadb-deployment</artifactId>
                 </exclusion>
-
-                <!-- Exclude unused support for: H2 -->
-                <!-- Note: by default keycloak uses the h2 database as database for auto-build.
-                     To remove h2, one needs to configure another Database in src/main/resources/META-INF/keycloak.conf -->
-                <exclusion>
-                    <groupId>com.h2database</groupId>
-                   <artifactId>h2</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
 
         <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-web</artifactId>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-quarkus-server-app</artifactId>
+            <version>${keycloak.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-quarkus-server-deployment</artifactId>
+            <version>${keycloak.version}</version>
+        </dependency>
+
+
         <!-- Additional Quarkus Features: Begin -->
-
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-security</artifactId>
-            <version>${quarkus.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-mutiny</artifactId>
-            <version>${quarkus.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -231,57 +204,14 @@
     </dependencies>
 
     <dependencyManagement>
+
         <dependencies>
-            <!-- CVE Patch overrides: Begin -->
-            <!-- CVE Patch overrides: End -->
             <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-commons</artifactId>
-                <version>14.0.21.Final</version>
-            </dependency>
-            <dependency>
-                <!-- use dependencies from quarkus bom -->
-                <groupId>io.quarkus.platform</groupId>
-                <artifactId>quarkus-bom</artifactId>
-                <version>${quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <!-- pull up to match version used by Keycloak -->
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>4.10.0</version>
-            </dependency>
-
-
-            <dependency>
-                <!-- pull up to match version used by Keycloak -->
-                <groupId>com.thoughtworks.xstream</groupId>
-                <artifactId>xstream</artifactId>
-                <version>1.4.20</version>
-            </dependency>
-
-            <dependency>
-                <!-- pull up to match version used by Keycloak -->
+                <!-- Base Keycloak.X Distribution -->
                 <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-admin-client</artifactId>
+                <artifactId>keycloak-quarkus-dist</artifactId>
                 <version>${keycloak.version}</version>
-            </dependency>
-
-            <dependency>
-                <!-- pull up to match version used by Keycloak -->
-                <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-core</artifactId>
-                <version>${keycloak.version}</version>
-            </dependency>
-
-            <dependency>
-                <!-- pull up to match version used by Keycloak -->
-                <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-common</artifactId>
-                <version>${keycloak.version}</version>
+                <type>zip</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
