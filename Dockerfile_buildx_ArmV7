@@ -3,7 +3,7 @@ FROM eclipse-temurin:21-jre-jammy
 RUN echo "keycloak:x:0:root" >> /etc/group && \
     echo "keycloak:x:1000:0:keycloak user:/opt/keycloak:/sbin/nologin" >> /etc/passwd
 
-COPY --chown=$USER ./target/keycloak-23*/ /opt/keycloak/
+COPY --chown=$USER ./target/keycloak-26*/ /opt/keycloak/
 
 RUN echo "Add certificates to cacerts truststore" \
     && ls -l /opt/keycloak/conf/certs/* \
