@@ -2,27 +2,29 @@ on:
   push:
     branches:
       - main
+
 jobs:
-    runs-on: ubuntu-latest
     build:
-      - name: Install  java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-      - name: Build
-        run: |
-          mvn clean package -P testing
-      - name: Install docker buildx
-        uses: docker/setup-buildx-action@v2
-      - name: Setup QEMU
-        uses: docker/setup-qemu-action@v2
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: samuel19982/keycloak_alpine:dev
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+      runs-on: ubuntu-latest
+      steps:
+        - name: Install  java
+          uses: actions/setup-java@v3
+          with:
+            java-version: '21'
+            distribution: 'temurin'
+        - name: Build
+          run: |
+            mvn clean package -P testing
+        - name: Install docker buildx
+          uses: docker/setup-buildx-action@v2
+        - name: Setup QEMU
+          uses: docker/setup-qemu-action@v2
+        - name: Build and push
+          uses: docker/build-push-action@v4
+          with:
+            context: .
+            platforms: linux/amd64,linux/arm64
+            push: true
+            tags: samuel19982/keycloak_alpine:dev
+            cache-from: type=local,src=/tmp/.buildx-cache
+            cache-to: type=local,dest=/tmp/.buildx-cache
