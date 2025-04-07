@@ -97,6 +97,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>9.8</version>
+        </dependency>
+
+        <dependency>
             <!-- Keycloak Quarkus Server Libraries-->
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-quarkus-server</artifactId>
