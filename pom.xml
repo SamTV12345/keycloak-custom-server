@@ -15,8 +15,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <keycloak.version>26.0.5</keycloak.version>
-                <quarkus.version>3.15.1</quarkus.version>
+                <keycloak.version>26.1.4</keycloak.version>
+                <quarkus.version>3.15.3.1</quarkus.version>
             </properties>
         </profile>
         <profile>
@@ -29,7 +29,7 @@
             </repositories>
             <properties>
                 <keycloak.version>999.0.0-SNAPSHOT</keycloak.version>
-                <quarkus.version>3.2.9.Final</quarkus.version>
+                <quarkus.version>3.20.0</quarkus.version>
             </properties>
         </profile>
 
@@ -96,12 +96,6 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>9.6</version>
-        </dependency>
-
         <dependency>
             <!-- Keycloak Quarkus Server Libraries-->
             <groupId>org.keycloak</groupId>
