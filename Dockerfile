@@ -1,3 +1,6 @@
+ARG KeycloakVersion=26.1.4
+
+
 FROM alpine:edge
 
 RUN apk add bash binutils openjdk21-jre-headless --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community && \
@@ -7,7 +10,7 @@ RUN apk add bash binutils openjdk21-jre-headless --no-cache --repository=http://
 RUN apk add tzdata bash --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community && \
     ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime # set timezone
 
-COPY --chown=$USER ./target/keycloak-26*/ /opt/keycloak/
+COPY --chown=$USER ./target/$KeycloakVersion/ /opt/keycloak/
 
 RUN echo "Add certificates to cacerts truststore" \
     && ls -l /opt/keycloak/conf/certs/* \

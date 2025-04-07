@@ -34,6 +34,8 @@ jobs:
             context: .
             platforms: linux/amd64,linux/arm64
             push: true
+            build-args: |
+                  KeycloakVersion=keycloak-999.0.0-SNAPSHOT
             tags: samuel19982/keycloak_alpine:dev
             cache-from: type=local,src=/tmp/.buildx-cache
             cache-to: type=local,dest=/tmp/.buildx-cache
