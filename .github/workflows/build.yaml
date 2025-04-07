@@ -17,7 +17,7 @@ jobs:
             distribution: 'temurin'
         - name: Build
           run: |
-            mvn clean package -P testing
+            mvn clean package -ntp -P testing
         - name: Install docker buildx
           uses: docker/setup-buildx-action@v2
         - name: Setup QEMU
